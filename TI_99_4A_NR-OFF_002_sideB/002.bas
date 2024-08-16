@@ -1,0 +1,214 @@
+  515 DATA WERTLOSER KRIMSKRAM , 0 , 0 , SACK VOLLER KUPFERM]NZEN , 1 , 3 , KLEINE MESSINGSTATUE , 2 , 5 , SACK VOLL SILBERM]NZEN , 5 , 12 
+  520 DIM INF$ ( 59 ) , R2 ( 4 ) , MSS ( 8 ) , T$ ( 12 ) , TEP ( 12 ) , TG ( 12 ) , AA$ ( 3 ) , MT ( 8 ) , TS ( 9 ) , MN$ ( 8 ) 
+  530 CALL CLEAR  :: RANDOMIZE 
+  545 CALL CHAR ( 97 , "183C3C187E18243C3C7EC3E7E9EBE9FF183C3C187E1824C30000AAFFFF55" , 109 , "1C381C381C381C38" ) 
+  550 CALL CHAR ( 101 , "183C183C5AA5A5A51818C3BD99BD24C3181842BD992424003E7F5D773E141C" ) 
+  555 CALL CHAR ( 105 , "081C3E6B3E362A1C18141C18989C5C3EE675371938E8583400826C0010003844" ) 
+  560 RM , MF2 , K = 1  :: K$ = "!@#%&!%@X!$%&@`" 
+  565 AA$ ( 1 ) = "MENSCH"  :: AA$ ( 2 ) = "ZWERG"  :: AA$ ( 3 ) = "ELFE" 
+  570 DISPLAY AT ( 6 , 6 )  : "DUNGEONS & DRAGONS"  :  : "        c DER HELD"  : "        b DER SCHATZ"  : "        d MAUER" 
+  575 DATA B\RSE VOLL GOLDM]NZEN , 5 , 12 , 3 GOLDNUGGETS , 8 , 17 , 4 KLEINE T]RKISE , 7 , 15 , GROSSER RUBIN , 15 , 30 , RIESIGER SAPHIR , 150 , 150 
+  580 DATA ZAUBERMEDIZIN , 10 , 0 , 10 MAGISCHE PFEILE , 15 , 0 , 10 NORMALE PFEILE , 10 , 0 
+  585 DATA SKELETT , 104 , 2 , ORK , 103 , 3 , DRACHE , 106 , 4 , SCH[NDER , 105 , 6 , SPINNE , 101 , 7 , SCHEUSAL , 107 , 8 , RIESE , 102 , 9 , GESPENST , 108 , 9.9 
+  650 FOR X = 1 TO 12  :: READ T$ ( X ) , TEP ( X ) , TG ( X )  :: NEXT X 
+  655 FOR P1 = 1 TO 8  :: READ MN$ ( P1 ) , MT ( P1 ) , MSS ( P1 ) 
+  660 DISPLAY AT ( 11 + P1 , 9 )  : CHR$ ( MT ( P1 ) )  ; " "  ; MN$ ( P1 )  :: NEXT P1 
+  665 FOR I = 1 TO 59  :: CALL CHARPAT ( I + 32 , A$ )  :: INF$ ( I ) = SEG$ ( A$ , 1 , 14 )  :: NEXT I  :: CALL CHARSET  :: FOR I = 0 TO 8  :: CALL COLOR ( I , 16 , 1 )  :: NEXT I  :: CALL COLOR ( 9 , 2 , 12 , 10 , 2 , 12 ) 
+  667 CALL CHAR ( 79 , "0000384444444438" , 96 , "" , 91 , "00443844447C444400443844444444380044004444444438" ) 
+  670 IF B1 = 1 THEN 1620ELSE 680
+  675 B1 = 0  :: GOTO 770
+  680 DISPLAY AT ( 24 , 3 )  : "EIGENE SPIELFIGUR  (J/N)" 
+  685 CALL KEY ( 3 , A , S )  :: IF S < 1 THEN 685ELSE GOSUB 1650
+  690 DISPLAY AT ( 1 , 1 ) ERASE ALL  : "NAME"  ; TAB ( 20 )  ; NM$  :  : "ST[RKE"  ; TAB ( 19 )  ; ST  : "GESCHICK"  ; TAB ( 19 )  ; DX  : "GESUNDHEIT"  ; TAB ( 19 )  ; W * 100  : "ERFAHRUNG"  ; TAB ( 19 )  ; EP 
+  695 DISPLAY AT ( 7 , 1 )  : "GOLD"  ; TAB ( 19 )  ; GP  :  : "1 = MENSCH"  ; TAB ( 19 )  ; RC  : "2 = ZWERG"  : "3 = ELFE "  :  : "PULVER"  ; TAB ( 19 )  ; DY 
+  700 DISPLAY AT ( 14 , 1 )  : "MAGISCHE PFEILE"  ; TAB ( 19 )  ; A2  : "NORMALE PFEILE"  ; TAB ( 19 )  ; A1  : "ZAUBERMEDIZIN"  ; TAB ( 19 )  ; PT  : "GEWEIHTES WASSER"  ; TAB ( 19 )  ; HW  :  : "GRAD"  ; TAB ( 19 )  ; MF2 
+  705 DISPLAY AT ( 21 , 1 )  : "KAMMER"  ; TAB ( 19 )  ; RM  :: IF FIN = 1 THEN 1145
+  710 ACCEPT AT ( 1 , 20 ) BEEP  : NM$  :: IF A < > 74 THEN 770
+  715 ACCEPT AT ( 3 , 20 ) SIZE ( - 3 ) BEEP  : ST  :: IF ST > 20 OR ST < 3 THEN 715
+  720 ACCEPT AT ( 4 , 20 ) SIZE ( - 3 ) BEEP  : DX  :: IF DX > 20 OR DX < 3 THEN 720
+  725 ACCEPT AT ( 7 , 20 ) SIZE ( - 3 ) BEEP  : GP  :: IF GP > 50 THEN 725
+  730 ACCEPT AT ( 9 , 20 ) SIZE ( - 3 ) BEEP  : RC  :: IF RC < 1 OR RC > 3 OR RC < > INT ( RC ) THEN 730
+  735 ACCEPT AT ( 13 , 20 ) SIZE ( - 3 ) BEEP  : DY  :: IF DY > 30 THEN 735
+  740 ACCEPT AT ( 14 , 20 ) SIZE ( - 3 ) BEEP  : A2  :: IF A2 > 20 THEN 740
+  745 ACCEPT AT ( 15 , 20 ) SIZE ( - 3 ) BEEP  : A1  :: IF A1 > 30 THEN 745
+  750 ACCEPT AT ( 16 , 20 ) SIZE ( - 3 ) BEEP  : PT  :: IF PT > 20 THEN 750
+  755 ACCEPT AT ( 17 , 20 ) SIZE ( - 3 ) BEEP  : HW  :: IF WH > 20 THEN 755
+  760 ACCEPT AT ( 19 , 20 ) SIZE ( - 3 ) BEEP  : MF2  :: IF MF2 < 1 OR MF2 > 3 THEN 760
+  765 ACCEPT AT ( 21 , 20 ) SIZE ( - 3 )  : RM  :: IF RM < 1 OR RM > 59 THEN 765
+  770 CALL CLEAR 
+  775 DISPLAY AT ( 1 , 1 )  : USING "DU HAST ### GOLDST]CKE"  : GP 
+  780 DISPLAY AT ( 3 , 1 )  : NM$  ; ", WAS M\CHTEST DU?"  :  : "# AUSWAHL              $   *"  :: DISPLAY AT ( 7 , 1 )  : USING "1 EIN MAGISCHER PFEIL  2 ###2 VIER NORMALE PFEILE  1 ###"  : A2 , A1 
+  785 DISPLAY AT ( 9 , 1 )  : USING "3 ZAUBERMEDIZIN       15 ###4 GEWEIHTES WASSER     3 ###5 PULVER UND LUNTE     3 ###0 IN DIE H\HLE"  : PT , HW , DY 
+  790 FOR A = 15 TO 24  :: DISPLAY AT ( A , 1 )  :: NEXT A 
+  795 DISPLAY AT ( 15 , 1 )  : "WELCHE NUMMER, "  ; NM$  ; "?"  :: ACCEPT AT ( 15 , 27 )  : IT  :: IF IT < 0 OR IT > 5 THEN 795ELSE P1 = 0  :: IF IT = 0 THEN 900
+  800 IF IT = 1 THEN P1 = 2 ELSE IF IT = 2 THEN P1 = 1 ELSE IF IT = 3 THEN P1 = 15 ELSE P1 = 3 
+  805 DISPLAY AT ( 17 , 1 )  : "WIEVIELE, "  ; NM$  ; "?"  :: ACCEPT AT ( 17 , 27 )  : NM  :: IF NM < > INT ( NM ) OR NM < 1 THEN DISPLAY AT ( 19 , 1 )  : "SEHR WITZIG."  :: GOTO 805
+  810 P1 = P1 * NM  :: OP = P1 
+  815 DISPLAY AT ( 19 , 1 )  : "DAS MACHT "  ; STR$ ( P1 )  ; ", ABER"  : "MAN KANN JA HANDELN." 
+  820 DISPLAY AT ( 22 , 1 )  : "WAS BIETEST DU, "  ; NM$  ; "?"  :: ACCEPT AT ( 22 , 27 )  : X 
+  825 IF X < OP / 2 THEN DISPLAY AT ( 24 , 1 )  : "VON WEGEN, "  ; NM$  :: GOTO 785
+  830 IF X < P1 THEN 840
+  835 DISPLAY AT ( 24 , 1 )  : "DAS IST EIN WORT"  :: FOR I = 1 TO 300  :: NEXT I  :: GOTO 860
+  840 IF X / P1 > RND THEN 855
+  845 P1 = INT ( ( P1 * 2 + X ) / 3 )  :: IF P1 < X THEN 835
+  850 DISPLAY AT ( 24 , 1 )  : "WIE W[RS MIT "  ; STR$ ( P1 )  ; "?"  :: GOTO 820
+  855 DISPLAY AT ( 24 , 1 )  : "TUT MIR LEID "  ; NM$  ; "..."  :: P1 = INT ( ( OP + P1 ) / 2 )  :: GOTO 820
+  860 IF GP < P1 THEN DISPLAY AT ( 1 , 1 ) ERASE ALL  : "KANNST WOHL DEINE SCHULDEN  NICHT BEZAHLEN, "  ; NM$ & "?"  ; "AN "  ; "DEN "  ; "GALGEN "  ; "MIT DIR."  :: GOSUB 1665
+  865 IF GP < P1 THEN CALL SOUND ( 4250 , 30000 , 1 )  :: GOTO 1140
+  870 GP = GP - P1  :: ON IT GOTO 875, 880, 885, 890, 895
+  875 A2 = A2 + NM  :: GOTO 775
+  880 A1 = A1 + NM * 4  :: GOTO 775
+  885 PT = PT + NM  :: GOTO 775
+  890 HW = HW + NM  :: GOTO 775
+  895 DY = DY + NM  :: GOTO 775
+  900 DISPLAY AT ( 1 , 1 ) ERASE ALL  : "MACH DICH FERTIG, DU WIRST  JETZT IN DIE H\HLE GEWORFEN."  :  : "VIEL GL]CK, "  ; NM$  ; "..." 
+  905 EL = 0 
+  910 IF EP < 101 THEN 920
+  915 EP = EP - 100  :: EL = EL + 100  :: MF2 = MF2 * 1.1  :: GOTO 910
+  920 EP = EP + EL  :: A3 , A4 = 0  :: IF EL > 500 THEN MF2 = MF2 / 1.1 
+  925 IF A2 > ST * 2 THEN A4 = A2 - ST * 2  :: DISPLAY AT ( 6 , 1 )  : "MEHR ALS"  ; A2  ; "MAGISCHE PFEILE"  : "W]RDEN DICH BEHINDERN" 
+  930 IF A1 > ST * 2 THEN A3 = A1 - ST * 2  :: A1 = ST * 2  :: DISPLAY AT ( 9 , 1 )  : "MEHR ALS"  ; A1  ; "NORMALE PFEIDE"  : "W]RDEN DICH BEHINDERN" 
+  935 GOSUB 1665
+  940 X5 = 10  :: Y5 = 14  :: CH = 97 
+  955 CALL CLEAR  :: IF B1 = 0 THEN B1 = 1  :: GOTO 965
+  960 IF RM = 1 THEN INPUT "DU BIST ZUR]CK ZUR KAMMER 1 WILLST DU AUF DEN MARKT? "  : A$  :: IF ASC ( A$ ) = 74 THEN 670
+  965 CALL CLEAR  :: A$ = INF$ ( RM )  :: R1 = VAL ( SEG$ ( A$ , 1 , 1 ) ) 
+  970 FOR I = 1 TO 4  :: R2 ( I ) = VAL ( SEG$ ( A$ , I * 2 , 2 ) )  :: NEXT I 
+  975 M1 = VAL ( SEG$ ( A$ , 10 , 2 ) ) 
+  980 M2 = VAL ( SEG$ ( A$ , 12 , 1 ) ) * MF2 
+  985 T1 = VAL ( SEG$ ( A$ , 13 , 2 ) ) 
+  990 GOSUB 1150
+  995 ON R1 GOSUB 1270, 1220
+ 1000 TY = INT ( RND * 6 + 14 ) 
+ 1005 TX = INT ( RND * 6 + 10 ) 
+ 1010 WX = INT ( RND * 6 + 10 ) 
+ 1015 WY = INT ( RND * 6 + 14 ) 
+ 1020 MS = MSS ( M1 ) / 10 
+ 1025 IF T1 THEN CALL HCHAR ( TX , TY , 98 ) 
+ 1030 IF M2 > = 1 THEN CALL HCHAR ( WX , WY , MT ( M1 ) ) 
+ 1035 CH = 98 + SGN ( 98 - CH )  :: CALL HCHAR ( X5 , Y5 , CH ) 
+ 1040 X = K 
+ 1045 CALL KEY ( 0 , K , S )  :: IF S THEN 1055
+ 1050 IF X = 68 OR X = 69 OR X = 83 OR X = 88 THEN K = X ELSE 1045
+ 1055 IF K > 90 OR K < 68 THEN 1045
+ 1060 ON K - 67 GOTO 1305, 1275, 1480, 1590, 1540, 1045, 1045, 1045, 1140, 1335, 1395, 1045, 1670, 1545, 1040, 1320, 1045, 1045, 1045, 1590, 1290, 1045, 1065
+ 1065 IF PT THEN PT = PT - 1  :: W = 1  :: DISPLAY AT ( 3 , 25 )  : "100"  ; 
+ 1070 IF M2 < 1 THEN 1030
+ 1075 IF MS > 0 THEN 1120
+ 1080 FOR X = 1 TO LEN ( K$ )  :: CALL SOUND ( - 1000 , 400 + X * 100 , X )  :: CALL HCHAR ( WX , WY , ASC ( SEG$ ( K$ , X , 1 ) ) )  :: NEXT X 
+ 1085 M2 = M2 - 1 
+ 1090 INF$ ( RM ) = SEG$ ( INF$ ( RM ) , 1 , 11 ) & STR$ ( INT ( M2 ) ) 
+ 1095 IF T1 < = 9 THEN INF$ ( RM ) = INF$ ( RM ) & "0" 
+ 1100 INF$ ( RM ) = INF$ ( RM ) & STR$ ( T1 ) 
+ 1105 EP = INT ( EP + MSS ( M1 ) ) 
+ 1110 DISPLAY AT ( 2 , 8 )  : USING "####"  : EP  ; 
+ 1115 DISPLAY AT ( 4 , 26 )  : USING "###"  : M2  :: GOTO 1010
+ 1120 MX = SGN ( X5 - WX )  :: MY = SGN ( Y5 - WY )  :: CALL HCHAR ( WX , WY , 96 )  :: WX = WX + MX  :: WY = WY + MY 
+ 1125 IF WX < > X5 OR WY < > Y5 OR RND > MS THEN 1030
+ 1130 X = RND * MS  :: W = W - X  :: DISPLAY AT ( 9 , 2 )  : USING "###"  : W  ;  :: IF W > 0 THEN 1030
+ 1135 FOR X = 1 TO LEN ( K$ )  :: CALL HCHAR ( X5 , Y5 , ASC ( SEG$ ( K$ , X , 1 ) ) )  :: CALL SOUND ( - 1000 , 1000 - X * 50 , X )  :: NEXT X 
+ 1140 CALL DELSPRITE ( ALL )  :: DISPLAY AT ( 1 , 1 ) ERASE ALL  : "WILLKOMMEN IM HIMMEL"  :  : "DU HAST GERADE"  ; GP  ; "GOLD-"  : "ST]CKE UND"  ; EP  ; "PUNKTE"  : "VERLOREN."  :  : "TSCH]SS, "  ; NM$  ; "..." 
+ 1145 GOSUB 1665 :: GOTO 670
+ 1150 DISPLAY AT ( 1 , 1 )  : USING "GOLD   ####          MONSTERERFAHRG####      ###########"  : GP , EP , RPT$ ( " " , 11 - LEN ( MN$ ( M1 ) ) ) & MN$ ( M1 ) 
+ 1155 DISPLAY AT ( 3 , 1 )  : USING "ST[RKE  ###       GESDH ###%"  : ST , W * 100 
+ 1185 IF M2 > = 1 OR RM = 1 THEN RETURN 
+ 1190 IF RND > .25 THEN RETURN 
+ 1195 DISPLAY AT ( 12 , 4 )  : "WANDERNDES MONSTER" 
+ 1200 M2 = INT ( RND * 3 ) + 1  :: M1 = INT ( RND * 8 ) + 1 
+ 1205 DISPLAY AT ( 2 , 18 )  : RPT$ ( " " , 11 - LEN ( MN$ ( M1 ) ) ) & MN$ ( M1 ) 
+ 1215 DISPLAY AT ( 12 , 1 )  :: RETURN 
+ 1220 FOR I = 6 TO 19  :: CALL HCHAR ( I , 10 , 96 , 14 )  :: NEXT I 
+ 1225 IF R2 ( 1 ) < 1 THEN 1235
+ 1230 FOR I = 14 TO 19  :: CALL VCHAR ( 1 , I , 96 , 9 )  :: NEXT I  :: IF RND < .3 THEN CALL HCHAR ( 2 + SGN ( RND - .5 ) , 14 , 100 , 6 ) 
+ 1235 IF R2 ( 2 ) < 1 THEN 1245
+ 1240 FOR I = 14 TO 19  :: CALL VCHAR ( 16 , I , 96 , 9 )  :: NEXT I  :: IF RND < .3 THEN CALL VCHAR ( 23 + SGN ( RND - .5 ) , 14 , 100 , 6 ) 
+ 1245 IF R2 ( 3 ) < 1 THEN 1255
+ 1250 FOR I = 10 TO 15  :: CALL HCHAR ( I , 20 , 96 , 12 )  :: NEXT I  :: IF RND < .3 THEN CALL VCHAR ( 10 , 30 + SGN ( RND - .5 ) , 109 , 6 ) 
+ 1255 IF R2 ( 4 ) < 1 THEN RETURN 
+ 1260 FOR I = 10 TO 15  :: CALL HCHAR ( I , 2 , 96 , 12 )  :: NEXT I  :: IF RND < .3 THEN CALL VCHAR ( 10 , 3 + SGN ( RND - .5 ) , 109 , 6 ) 
+ 1265 RETURN 
+ 1270 FOR I = 14 TO 19  :: CALL VCHAR ( 10 , I , 96 , 6 )  :: NEXT I  :: GOTO 1225
+ 1275 IF X5 = 1 THEN RM = R2 ( 1 )  :: X5 = 23  :: GOTO 955
+ 1280 CALL GCHAR ( X5 - 1 , Y5 , M )  :: IF M < > 96 THEN 1070
+ 1285 X5 = X5 - 1  :: CALL HCHAR ( X5 + 1 , Y5 , 96 )  :: GOTO 1070
+ 1290 IF X5 = 24 THEN RM = R2 ( 2 )  :: X5 = 2  :: GOTO 955
+ 1295 CALL GCHAR ( X5 + 1 , Y5 , M )  :: IF M < > 96 THEN 1070
+ 1300 X5 = X5 + 1  :: CALL HCHAR ( X5 - 1 , Y5 , 96 )  :: GOTO 1070
+ 1305 IF Y5 = 31 THEN RM = R2 ( 3 )  :: Y5 = 3  :: GOTO 955
+ 1310 CALL GCHAR ( X5 , Y5 + 1 , M )  :: IF M < > 96 THEN 1070
+ 1315 Y5 = Y5 + 1  :: CALL HCHAR ( X5 , Y5 - 1 , 96 )  :: GOTO 1070
+ 1320 IF Y5 = 2 THEN RM = R2 ( 4 )  :: Y5 = 30  :: GOTO 955
+ 1325 CALL GCHAR ( X5 , Y5 - 1 , M )  :: IF M < > 96 THEN 1070
+ 1330 Y5 = Y5 - 1  :: CALL HCHAR ( X5 , Y5 + 1 , 96 )  :: GOTO 1070
+ 1335 IF M2 < 1 THEN DISPLAY AT ( 24 , 1 ) BEEP  : "ALLES KLAR"  ;  :: GOTO 1045
+ 1340 IF A2 = 0 THEN 1070
+ 1345 CALL CHAR ( 110 , "000024181824" )  :: GOSUB 1460 :: A2 = A2 - 1 
+ 1350 X = RND / 2  :: ON RC GOTO 1360, 1355, 1365
+ 1355 X = X + .2 
+ 1360 X = X - .1 
+ 1365 X = X - EP / 1000 - .2 - DX / 100 
+ 1370 IF X > W THEN 1070
+ 1375 X = RND  :: ON RC GOTO 1380, 1385, 1385
+ 1380 X = X + .1 
+ 1385 X = X + .1 
+ 1390 MS = MS - X  :: GOTO 1070
+ 1395 IF M2 < 1 THEN 1335
+ 1400 IF A1 = 0 THEN 1070
+ 1405 CALL CHAR ( 110 , "0000001818" )  :: GOSUB 1460 :: A1 = A1 - 1 
+ 1410 IF M1 = 8 THEN 1070
+ 1415 X = RND / 2 - DX / 100 - EP / 1000 
+ 1420 ON RC GOTO 1430, 1425, 1435
+ 1425 X = X + .2 
+ 1430 X = X - .1 
+ 1435 IF X > W THEN RETURN 
+ 1440 X = RND  :: ON RC GOTO 1445, 1450, 1455
+ 1445 X = X + .2 
+ 1450 X = X - .1 
+ 1455 MS = MS - X  :: GOTO 1070
+ 1460 CALL HCHAR ( X5 , Y5 , 42 )  :: A = X5 + SGN ( WX - X5 )  :: X = Y5 + SGN ( WY - Y5 )  :: CALL HCHAR ( X5 , Y5 , 97 )  :: GOTO 1470
+ 1465 CALL HCHAR ( A , X , 96 )  :: A = A + SGN ( WX - A )  :: X = X + SGN ( WY - X ) 
+ 1470 CALL HCHAR ( A , X , 110 )  :: IF A < > WX OR X < > WY THEN 1465
+ 1475 CALL HCHAR ( WX , WY , MT ( M1 ) )  :: RETURN 
+ 1480 IF M2 < 1 THEN 1335
+ 1485 GOSUB 1490 :: GOTO 1070
+ 1490 IF ABS ( X5 - WX ) > 1 OR ABS ( Y5 - WY ) > 1 OR M1 > 6 THEN RETURN 
+ 1495 IF M1 = 6 THEN W = W - .1 
+ 1500 X = RND  :: ON RC GOTO 1515, 1505, 1510
+ 1505 X = X - .2 
+ 1510 X = X - .1 
+ 1515 X = X - DX / 100 - EP / 1000  :: IF X > W THEN RETURN 
+ 1520 X = RND  :: ON RC GOTO 1530, 1525, 1535
+ 1525 X = X + .1 
+ 1530 X = X + .1 
+ 1535 X = X + ST / 100  :: MS = MS - X  :: RETURN 
+ 1540 IF ABS ( TX - X5 ) > 1 OR ABS ( TY - Y5 ) > 1 THEN 1070
+ 1545 CALL HCHAR ( TX , TY , 96 )  :: DISPLAY AT ( 24 , 1 )  : TAB ( ( 28 - LEN ( T$ ( T1 ) ) ) / 2 )  ; T$ ( T1 ) 
+ 1550 IF T1 = 10 THEN PT = PT + 1  :: GOTO 1570
+ 1555 IF T1 = 11 THEN A2 = A2 + 10  :: GOTO 1570
+ 1560 IF T1 = 12 THEN A1 = A1 + 10  :: GOTO 1570
+ 1565 TS ( T1 ) = TS ( T1 ) + 1  :: GP = GP + TG ( T1 ) 
+ 1570 EP = EP + TEP ( T1 ) 
+ 1575 INF$ ( RM ) = SEG$ ( INF$ ( RM ) , 1 , 12 ) & "00"  :: T1 = 0 
+ 1580 CALL KEY ( 0 , IT , M )  :: IF M < 1 THEN 1580ELSE IF R2 ( 2 ) = 0 THEN DISPLAY AT ( 24 , 1 ) ELSE DISPLAY AT ( 24 , 1 )  : "           ``````" 
+ 1585 GOTO 1030
+ 1590 IF M2 < 1 THEN 1335
+ 1595 IF HW = 0 THEN 1070
+ 1600 HW = HW - 1 
+ 1605 IF M1 = 2 OR M1 = 5 OR M1 = 7 THEN 1070
+ 1610 CALL CHAR ( 110 , "00669900006699" ) 
+ 1615 GOSUB 1460 :: CALL HCHAR ( WX , WY , 32 )  :: WA = WX  :: WX = X5  :: WB = WY  :: WY = Y5  :: GOSUB 1490 :: WX = WA  :: WY = WB  :: CALL HCHAR ( X5 , Y5 , 97 )  :: GOTO 1070
+ 1620 DISPLAY AT ( 1 , 1 ) ERASE ALL  : "DAS HAST DU GEFUNDEN:" 
+ 1625 FOR X = 1 TO 9  :: DISPLAY AT ( X + 2 , 1 )  : T$ ( X )  ; TAB ( 26 )  ; STR$ ( TS ( X ) )  :: NEXT X 
+ 1630 A1 = A1 + A3  :: A2 = A2 + A4 
+ 1635 DISPLAY AT ( 24 , 1 )  : "FERTIGGESPIELT?"  :: ACCEPT AT ( 24 , 24 )  : A$ 
+ 1640 IF ASC ( A$ ) < > 74 THEN 675
+ 1645 FIN = 1  :: GOTO 690
+ 1650 GP = INT ( RND * 20 + 6 )  :: ST = INT ( RND * 17 + 3 )  :: DX = INT ( RND * 17 + 3 )  :: RC = INT ( RND * 3 + 1 )  :: A1 = 3  :: A2 = INT ( RND * 10 + 1 )  :: DY = INT ( RND * 10 + 1 ) 
+ 1655 PT = INT ( RND * 3 + 1 )  :: HW = INT ( RND * 5 + 1 )  :: EP = 0  :: W = 1 
+ 1660 RETURN 
+ 1665 FOR X = 1 TO 1000  :: NEXT X  :: RETURN 
+ 1670 IF DY < 1 THEN 1030
+ 1675 ON ERROR 1690 :: FOR I = X5 - 1 TO X5 + 1  :: FOR J = Y5 - 1 TO Y5 + 1 
+ 1680 CALL HCHAR ( I , J , 96 ) 
+ 1685 NEXT J  :: NEXT I  :: ON ERROR STOP  :: DY = DY - 1  :: GOTO 1050
+ 1690 ON ERROR 1690 :: RETURN NEXT 

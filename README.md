@@ -46,7 +46,7 @@ RUN
 
 ## Todo
 
-- [ ] Dump rest of the cassettes
+- [x] Dump rest of the cassettes
 - [ ] Scan and add cassette sleeves
 - [ ] Create mapping of cassette sleeve indexes and dumped files
 - [ ] Document integrity of archive

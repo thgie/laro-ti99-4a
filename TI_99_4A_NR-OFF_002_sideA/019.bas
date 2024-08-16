@@ -1,0 +1,45 @@
+  100 CALL CLEAR 
+  110 INPUT "UHRZEIT?: "  : STD , MIN , SEK 
+  120 SEK = SEK + 2 
+  130 CALL CLEAR 
+  140 DEF K1 = ASC ( STR$ ( INT ( STD / 10 ) ) ) 
+  150 DEF K2 = ASC ( STR$ ( ( STD / 10 - INT ( STD / 10 ) ) * 10 ) ) 
+  160 DEF K3 = ASC ( STR$ ( INT ( MIN / 10 ) ) ) 
+  170 DEF K4 = ASC ( STR$ ( ( MIN / 10 - INT ( MIN / 10 ) ) * 10 ) ) 
+  180 DEF K5 = ASC ( STR$ ( INT ( SEK / 10 ) ) ) 
+  190 DEF K6 = ASC ( STR$ ( ( SEK / 10 - INT ( SEK / 10 ) ) * 10 ) ) 
+  200 CALL HCHAR ( 20 , 12 , 58 ) 
+  210 CALL HCHAR ( 20 , 15 , 58 ) 
+  220 CALL HCHAR ( 20 , 10 , K1 ) 
+  230 CALL HCHAR ( 20 , 11 , K2 ) 
+  240 CALL HCHAR ( 20 , 13 , K3 ) 
+  250 CALL HCHAR ( 20 , 14 , K4 ) 
+  260 CALL HCHAR ( 20 , 16 , K5 ) 
+  270 CALL HCHAR ( 20 , 17 , K6 ) 
+  280 SEK = SEK + 1 
+  290 IF SEK > 59 THEN 350
+  300 IF MIN > 59 THEN 420
+  310 IF STD > 23 THEN 490
+  320 FOR X = 1 TO 180 
+  330 NEXT X 
+  340 GOTO 260
+  350 MIN = MIN + 1 
+  360 IF MIN > 59 THEN 420
+  370 IF STD > 23 THEN 490
+  380 SEK = 0 
+  390 FOR X = 1 TO 150 
+  400 NEXT X 
+  410 GOTO 240
+  420 STD = STD + 1 
+  430 IF STD > 23 THEN 490
+  440 MIN = 0 
+  450 SEK = 0 
+  460 FOR X = 1 TO 120 
+  470 NEXT X 
+  480 GOTO 220
+  490 STD = 0 
+  500 MIN = 0 
+  510 SEK = 0 
+  520 FOR X = 1 TO 100 
+  530 NEXT X 
+  540 GOTO 220
