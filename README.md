@@ -11,6 +11,12 @@ This repository holds dump files, paratextual material and contextual informatio
 - Adrian Demleitner, digital humanities scholar
 
 
+## Content
+- `dumps` contains the [extraced](#Extraction-Process) data and BASIC files, as well as one example of a re-encoded data file was `.wav`
+- `tapes` holds information and documentation regarding the source material
+    - `tapes/photos` exposes photos of the front, back, side and, most importantly, the sleeve of all five tapes
+
+
 ## Copyright
 
 Laro Schatzer is holding the intellectual property of the code and paratextual material published in this repository. Contextual information is released under [GPL-3.0](LICENSE)
@@ -47,7 +53,7 @@ RUN
 ## Todo
 
 - [x] Dump rest of the cassettes
-- [ ] Scan and add cassette sleeves
+- [x] Scan and add cassette sleeves
 - [ ] Create mapping of cassette sleeve indexes and dumped files
 - [ ] Document integrity of archive
 - [ ] Add more contextual information

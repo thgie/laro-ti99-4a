@@ -1,0 +1,48 @@
+   10 REM  *** PRIMZAHLEN *** 
+   20 REM  @ 1983/L. SACER             ALEMANNENSTR.10             CH-4106 THERWIL 
+   30 CALL CLEAR 
+   40 CALL SCREEN ( 4 ) 
+   50 PRINT TAB ( 9 )  ; "PRIMZAHLEN"  :  :  : "MIT DIESEM PROGRAMM WERDEN  DIE ERSTEN 1500 PRIMZAHLEN  ERRECHNET." 
+   60 PRINT  : "DRUECKEN SIE "L" UM DIE     BISHERIG AUSGERECHNETEN"  : "ZAHLEN AUFZULISTEN." 
+   70 PRINT  : "DRUECKEN SIE "E" UM ZU      BEENDEN." 
+   80 PRINT  :  : TAB ( 7 )  ; "TASTE DRUECKEN" 
+   90 CALL KEY ( 3 , K , S ) 
+  100 IF S < = 0 THEN 90
+  110 CALL CLEAR 
+  120 PRINT "     PROGRAMM LAUEFT..."  :  :  : 
+  130 REM  
+  140 DIM P ( 1500 ) 
+  150 ZAHL = 3 
+  160 I = 1 
+  170 P ( I ) = 2 
+  180 PRINT 2  ; 
+  190 FOR X = 1 TO I 
+  200 IF ZAHL / P ( X ) = INT ( ZAHL / P ( X ) ) THEN 260
+  210 IF P ( X ) ^ 2 > ZAHL THEN 230
+  220 NEXT X 
+  230 PRINT ZAHL  ; 
+  240 I = I + 1 
+  250 P ( I ) = ZAHL 
+  260 ZAHL = ZAHL + 1 
+  270 CALL KEY ( 3 , K , S ) 
+  280 IF K = 76 THEN 320
+  290 IF K = 69 THEN 380
+  300 IF I > = 1500 THEN 370
+  310 GOTO 190
+  320 PRINT  :  : 
+  330 FOR G = 1 TO I 
+  340 PRINT P ( G )  ; 
+  350 NEXT G 
+  360 GOTO 190
+  370 PRINT  :  :  :  :  :  :  : TAB ( 8 )  ; "SPEICHER VOLL" 
+  380 PRINT  :  :  : 
+  390 INPUT "AUSDRUCK(J/N):"  : A$ 
+  400 IF SEG$ ( A$ , 1 , 1 ) = "N" THEN 480
+  410 IF SEG$ ( A$ , 1 , 1 ) < > "J" THEN 390
+  420 PRINT  :  : 
+  430 FOR G = 1 TO I 
+  440 PRINT P ( G )  ; 
+  450 NEXT G 
+  460 PRINT  :  :  : 
+  470 GOTO 390
+  480 END 

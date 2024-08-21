@@ -1,0 +1,112 @@
+  100 ON WARNING NEXT 
+  300 CALL CLEAR  :: CALL MAGNIFY ( 3 ) 
+  500 CALL CHARALL  :: CALL COLORS 
+  700 OPTION BASE 1 
+  900 DIM W ( 5 , 5 ) , C ( 9 , 2 ) , K ( 4 ) 
+ 1100 RANDOMIZE 
+ 1300 DEF RN ( X ) = INT ( X * RND ) + 1 
+ 1500 Q1 = RN ( 5 )  :: Q2 = RN ( 5 ) 
+ 1700 FOR I = 1 TO 9  :: C ( I , 2 ) , C ( I , 1 ) = 0  :: NEXT I 
+ 1900 C ( 3 , 1 ) , C ( 2 , 1 ) , C ( 4 , 1 ) , C ( 4 , 2 ) , C ( 5 , 2 ) , C ( 6 , 2 ) = - 1 
+ 2100 C ( 1 , 2 ) , C ( 2 , 2 ) , C ( 6 , 1 ) , C ( 7 , 1 ) , C ( 8 , 1 ) , C ( 8 , 2 ) , C ( 9 , 2 ) = 1 
+ 2300 FOR I = 1 TO 5  :: FOR J = 1 TO 5  :: K3 = 0  :: R1 = RND 
+ 2500 IF R1 < .3 THEN K3 = 2  :: K9 = K9 + 2  :: GOTO 3100
+ 2700 IF R1 > .65 THEN K3 = 4  :: K9 = K9 + 4  :: GOTO 3100
+ 2900 K3 = 3  :: K9 = K9 + 3 
+ 3100 W ( I , J ) = K3  :: NEXT J  :: NEXT I 
+ 3300 K7 = K9  :: PRINT "DEINE ORDER:"  : "ZERSTOERE DIE"  ; K9  ; "FEINDLICHEN RAUMSCHIFFE." 
+ 3500 PRINT "WENN DU BEREIT BIST,DRUECKE EINE TASTE." 
+ 3700 CALL KEY ( 0 , @1 , @ )  :: IF @ = 0 THEN 3700
+ 3900 CALL SPRITE ( # 2 , 100 , 12 , 90 , 90 )  :: CALL SCREEN ( 2 )  :: CALL HCHAR ( 1 , 1 , 96 , 768 )  :: FOR I = 10 TO 28  :: CALL SPRITE ( # I , 128 , 16 , RN ( 255 ) , RN ( 255 ) )  :: NEXT I 
+ 4100 FOR I = 1 TO W ( Q1 , Q2 )  :: K ( I ) = 30  :: NEXT I  :: P9 = W ( Q1 , Q2 ) 
+ 4300 FOR I = 1 TO W ( Q1 , Q2 )  :: CALL SPRITE ( # 2 + I , 116 + ( K ( I ) < 10 ) * 4 , 10 , RN ( 145 ) + 25 , RN ( 220 ) + 20 )  :: NEXT I 
+ 4500 Z = 108 + ( S < 60 ) * 4 + ( S < 15 ) * 4  :: CALL PATTERN ( # 2 , Z ) 
+ 4700 CALL KEY ( 1 , @1 , @ )  :: CALL JOYST ( 1 , X , Y ) 
+ 4900 IF @1 = 16 THEN 5500
+ 5100 IF @1 = 18 AND W ( Q1 , Q2 ) > 0 THEN 5310
+ 5300 CALL MOTION ( # 2 , - Y * 4 , X * 4 )  :: GOTO 4700
+ 5310 CALL MOTION ( # 2 , 0 , 0 )  :: CALL JOYST ( 1 , X , Y )  :: IF X = 0 AND Y = 0 THEN 5310
+ 5315 CALL POSITION ( # 2 , P7 , P8 )  :: CALL SOUND ( 200 , - 5 , 10 )  :: CALL SPRITE ( # 1 , 124 , 16 , P7 , P8 , - Y * 5 , X * 5 ) 
+ 5320 FOR G = 1 TO 8  :: FOR G1 = 3 TO 7  :: CALL COINC ( # 1 , # G1 , 8 , O )  :: IF O THEN CALL DELSPRITE ( # 1 )  :: GOTO 5330
+ 5325 NEXT G1  :: NEXT G  :: CALL DELSPRITE ( # 1 )  :: GOSUB 5400 :: GOTO 4700
+ 5330 CALL SOUND ( 200 , - 6 , 9 )  :: K ( G1 - 2 ) = K ( G1 - 2 ) - 20  :: CALL PATTERN ( # G1 , 116 + ( K ( G1 - 2 ) < 11 ) * 4 )  :: IF K ( G1 - 2 ) < 0 THEN CALL EXPLOSION ( G1 )  :: K9 = K9 - 1  :: W ( Q1 , Q2 ) = W ( Q1 , Q2 ) - 1 
+ 5335 GOSUB 5400 :: GOTO 4700
+ 5400 FOR P1 = 1 TO P9  :: CALL POSITION ( # P1 + 2 , P4 , P5 )  :: IF P4 THEN GOSUB 7200ELSE GOTO 5420
+ 5405 CALL POSITION ( # 2 , P2 , P3 , # 2 + P1 , P4 , P5 ) 
+ 5410 CALL SOUND ( 200 , - 5 , 10 )  :: CALL SPRITE ( # 1 , 124 , 16 , P4 , P5 , ( P2 - P4 ) / 2 , ( P3 - P5 ) / 2 ) 
+ 5415 FOR M = 1 TO 20  :: CALL COINC ( # 1 , # 2 , 8 , O )  :: IF O THEN 5425
+ 5417 NEXT M 
+ 5420 NEXT P1  :: CALL DELSPRITE ( # 1 )  :: RETURN 
+ 5425 CALL DELSPRITE ( # 1 )  :: CALL SOUND ( 200 , - 6 , 6 )  :: S = S - 15  :: CALL PATTERN ( # 2 , 108 + ( S < 60 ) * 4 + ( S < 15 ) * 4 )  :: IF S < 0 THEN CALL EXPLOSION ( 2 )  :: STOP 
+ 5430 GOTO 5420
+ 5500 CALL HCHAR ( 1 , 1 , 32 )  :: CALL KEY ( 1 , @ , @1 ) 
+ 5700 IF @ = 19 THEN CALL HCHAR ( 1 , 1 , 96 )  :: GOTO 6700
+ 5900 IF @ = 7 THEN CALL HCHAR ( 1 , 1 , 96 )  :: GOTO 7100
+ 6100 IF @ = 8 THEN CALL HCHAR ( 1 , 1 , 96 )  :: CALL FERN ( Q1 , Q2 , W ( , ) )  :: GOTO 4700
+ 6300 IF @ = 9 THEN CALL HCHAR ( 1 , 1 , 96 )  :: GOTO 4700
+ 6500 GOTO 5500
+ 6700 S = S + 65 
+ 6900 CALL PATTERN ( # 2 , 108 + ( S < 60 ) * 4 + ( S < 15 ) * 4 )  :: GOTO 4700
+ 7100 CALL INPUT ( "KURS?(1-8.9)" , 2 , C1 )  :: CALL INPUT ( "FAKTOR?(1-8):" , 2 , W1 )  :: IF W ( Q1 , Q2 ) THEN GOSUB 5400
+ 7101 CALL QUADRANT ( Q1 , Q2 , C1 , W1 , C ( , ) )  :: GOTO 4100
+ 7200 CALL POSITION ( # 2 , P2 , P3 , # P1 + 2 , P4 , P5 ) 
+ 7210 R1 = SGN ( 120 - P4 )  :: R2 = SGN ( 120 - P5 )  :: R3 = ( R1 * ABS ( P2 - P4 ) + 11 * RND - 5 ) / 8  :: R4 = ( R2 * ABS ( P3 - P5 ) + 11 * RND - 5 ) / 8 
+ 7220 IF K ( P1 ) < 30 THEN R3 = - R3 - 10 * R1  :: R4 = - R4 - 10 * R2 
+ 7230 CALL SOUND ( 200 , - 2 , 8 )  :: CALL MOTION ( # P1 + 2 , R3 , R4 )  :: FOR H1 = 1 TO 80  :: NEXT H1  :: CALL MOTION ( # P1 + 2 , 0 , 0 ) 
+ 7240 RETURN 
+ 7300 SUB CHARALL 
+ 7500 RESTORE 7700
+ 7700 DATA 96 , , 97 , 0000001818 , 104 , 0F3040418183878F9F8381814040300FF00C028281C1E1F1F9C1818102020CF 
+ 7900 DATA 108 , 0F3F7061C1C3C7CFDFC3C1C160703F0FF0FC0E8683C3E3F3FBC38383060EFCF , 100 , 000000010103070F1F030101000000000000008080C0E0F0F8C0808 
+ 8100 DATA 116 , 0F30404081878D999F8381804040300FF00C020281E1B199F9C1810102020CF0 , 112 , 0000000001070D191F030100000000000000000080E0B098F8C08 
+ 8300 DATA 120 , 000010101C0E0603010F1F1E1E0C080000000808387060C080F0F87878301 , 124 , 00000000000001030301 , 126 , 00000000000080C0C08 
+ 8500 DATA 128 , 000000000000000101 , 130 , 00000000000000808 , 0 , 0 
+ 8700 READ Z , Z$  :: IF Z = 0 THEN 9100
+ 8900 CALL CHAR ( Z , Z$ )  :: GOTO 8700
+ 9100 SUBEND 
+ 9300 SUB COLORS 
+ 9500 FOR X = 0 TO 8  :: CALL COLOR ( X , 2 , 8 )  :: NEXT X  :: CALL COLOR ( 9 , 16 , 2 ) 
+ 9700 SUBEND 
+ 9900 SUB INPUT ( A$ , Z , X ) 
+10100 DISPLAY AT ( Z , 1 )  : A$ 
+10300 L = LEN ( A$ ) 
+10500 IF L > 27 THEN L = L - 28  :: Z = Z + 1  :: GOTO 10500
+10700 ACCEPT AT ( Z , L + 1 ) BEEP VALIDATE ( NUMERIC )  : X 
+10900 DISPLAY AT ( 1 , 1 )  : RPT$ ( "`" , Z * 28 ) 
+11100 SUBEND 
+11300 SUB QUADRANT ( Q1 , Q2 , C1 , W1 , C ( , ) )  :: Q4 = Q1  :: Q5 = Q2 
+11500 IF C1 < 1 OR C1 > = 9 OR W1 < 1 OR W1 > 5 THEN SUBEXIT 
+11700 X1 = C ( C1 , 1 ) + ( C ( C1 + 1 , 1 ) - C ( C1 , 1 ) ) * ( C1 - INT ( C1 ) ) 
+11900 X2 = C ( C1 , 2 ) + ( C ( C1 + 1 , 2 ) - C ( C1 , 2 ) ) * ( C1 - INT ( C1 ) ) 
+12100 FOR I = 1 TO W1 
+12300 Q1 = Q1 + X1  :: IF Q1 > 5 THEN Q1 = Q1 - 5 
+12500 IF Q1 < 1 THEN Q1 = Q1 + 5 
+12700 Q2 = Q2 + X2  :: IF Q2 > 5 THEN Q2 = Q2 - 5 
+12900 IF Q2 < 1 THEN Q2 = Q2 + 5 
+13100 NEXT I 
+13300 DISPLAY AT ( 2 , 1 )  : "VON QUADR."  ; STR$ ( Q4 )  ; ","  ; STR$ ( Q5 )  ; " ZU "  ; STR$ ( Q1 )  ; ","  ; STR$ ( Q2 )  ; ",KURS="  ; STR$ ( C1 ) 
+13500 CALL DELSPRITE ( # 1 , # 3 , # 4 , # 5 , # 6 , # 7 , # 8 , # 9 ) 
+13700 CALL SOUND ( 999 , - 1 , 5 )  :: FOR I = 10 TO 28  :: CALL MOTION ( # I , W1 * X1 * - 10 , W1 * X2 * - 10 )  :: NEXT I 
+13900 CALL SOUND ( - 4250 , - 2 , 5 )  :: FOR I = 1 TO 500 + W1 * 100  :: NEXT I  :: FOR I = 10 TO 28  :: CALL MOTION ( # I , 0 , 0 )  :: NEXT I 
+14100 SUBEND 
+14300 SUB EXPLOSION ( X ) 
+14500 IF X = 2 THEN CALL PATTERN ( # X , 100 ) ELSE CALL PATTERN ( # X , 112 ) 
+14700 CALL SOUND ( 700 , - 7 , 5 ) 
+14900 FOR U = 1 TO 40  :: CALL COLOR ( # X , 10 , # X , 16 )  :: NEXT U 
+15100 CALL DELSPRITE ( # X ) 
+15300 SUBEND 
+15500 SUB FERN ( Q1 , Q2 , W ( , ) ) 
+15700 O$ = RPT$ ( "-" , 13 )  :: PRINT O$ 
+15900 FOR I = Q1 - 1 TO Q1 + 1 
+16100 FOR J = Q2 - 1 TO Q2 + 1 
+16300 IF I < 1 THEN I1 = 5 ELSE I1 = I 
+16500 IF I > 5 THEN I1 = 1 
+16700 IF J < 1 THEN J1 = 5 ELSE J1 = J 
+16900 IF J > 5 THEN J1 = 1 
+17100 PRINT ":"  ; W ( I1 , J1 )  ; 
+17300 NEXT J  :: PRINT ":"  : O$ 
+17500 NEXT I 
+17700 CALL KEY ( 0 , K , S )  :: IF K < > 13 THEN 17700
+17900 CALL HCHAR ( 13 , 1 , 96 , 384 ) 
+18100 SUBEND 
+19500 END 

@@ -1,0 +1,110 @@
+  100 CALL CLEAR  :: PRINT TAB ( 5 )  ; "FUNKTIONEN-PLOT"  : TAB ( 5 )  ; "===============" 
+  120 INPUT "ANZAHL ZEILEN:"  : Z1 
+  130 INPUT "ANZAHL SPALTEN:"  : S1 
+  140  ! 
+  150 F9 = S1 / Z1 / 1.4  :: DEF FNA ( X ) = INT ( X * F9 + S1 / 2 + .5 )  :: DEF FNB ( Y ) = INT ( Z1 / 2 - Y + .5 ) 
+  160 LINPUT "UEBERPRUEFEN (J/N)_?"  : I$  :: IF I$ = "N" THEN 300
+  170 PRINT "ICH WERDE JETZT EIN QUADRAT ZEICHNEN." 
+  180 INPUT "WELCHE SEITENGROESSE?:"  : Q 
+  190 IF Q > = Z1 THEN PRINT "ZU GROSS!"  :: GOTO 180
+  200 IF Q > = S1 THEN PRINT "ZU GROSS!"  :: GOTO 180
+  210 PRINT  : "SIE KOENNEN DIE ZEICHNUNG   DURCH DRUECKEN EINER TASTE  BEENDEN." 
+  220 PRINT  : "BITTE EINE TASTE DRUECKEN." 
+  230 CALL KEY ( 0 , K , S )  :: IF S < 1 THEN 230
+  240 CALL CLEAR  :: CALL PLOT ( FNA ( 0 ) , FNB ( 0 ) )  :: Q = Q / 2 
+  250 FOR X = - Q TO Q  :: CALL PLOT ( FNA ( X ) , FNB ( Q ) )  :: NEXT X 
+  260 FOR X = - Q TO Q  :: CALL PLOT ( FNA ( X ) , FNB ( - Q ) )  :: NEXT X 
+  270 FOR Y = - Q TO Q  :: CALL PLOT ( FNA ( - Q ) , FNB ( Y ) )  :: NEXT Y 
+  280 FOR Y = - Q TO Q  :: CALL PLOT ( FNA ( Q ) , FNB ( Y ) )  :: NEXT Y 
+  290 CALL KEY ( 0 , K , S )  :: IF S < 1 THEN 290
+  300 DEF FNX ( T ) = C * ( ( B - A ) * COS ( A / B * T ) - A * COS ( ( B - A ) / B * T ) ) 
+  310 DEF FNY ( T ) = C * ( ( B - A ) * SIN ( A / B * T ) + A * SIN ( ( B - A ) / B * T ) ) 
+  320 F$ = "HYPOZYKLOIDE" 
+  330 PRINT TAB ( 5 )  ; "FUNKTIONSBERECHNUNG" 
+  340 PRINT TAB ( 5 )  ; "===================" 
+  350 PRINT  : "FUNKTIONS.DEF IN ZEILEN     300-320"  :  : 
+  360 PRINT "JETZTIGE WERTE:" 
+  370 PRINT "PARAMETER A ="  ; A 
+  380 PRINT "PARAMETER B ="  ; B 
+  390 PRINT "PARAMETER C ="  ; C 
+  400 PRINT "ANFANGSWINKEL D1 ="  ; D1 
+  410 PRINT "END-   WINKEL D2 ="  ; D2 
+  420 PRINT "SCHRITTWEITE  D0 ="  ; D0 
+  430 PRINT  : "NEUE WERTE:" 
+  440 INPUT "A, B, C :"  : A , B , C 
+  450 INPUT "D1,D2,D0:"  : D1 , D2 , D0 
+  460  ! 
+  470 P1 = D1 / 180 * PI  :: P2 = D2 / 180 * PI  :: P0 = D0 / 180 * PI 
+  480  ! 
+  490 CALL CLEAR  :: PRINT ""  :: CALL PLOT ( FNA ( 0 ) , FNB ( 0 ) ) 
+  500 FOR T = P1 TO P2 STEP P0 
+  510 X = FNA ( FNX ( T ) )  :: Y = FNB ( FNY ( T ) )  :: GOTO 550
+  520  ! 
+  530  ! 
+  540  ! 
+  550 IF X < 0 THEN 600
+  560 IF X > S1 - 1 THEN 600
+  570 IF Y < 1 THEN 600
+  580 IF Y > Z1 - 1 THEN 600
+  590 CALL PLOT ( X , Y ) 
+  595 CALL FARBE 
+  600 NEXT T 
+  610 CALL KEY ( 0 , K , S )  :: IF S < 1 THEN 610
+  615 CALL CHARSET  :: CALL SCREEN ( 8 ) 
+  620 GOTO 330
+27000 SUB PLOT ( X1 , Y1 ) 
+27060 IF Y1 < 1 THEN 27930
+27070 IF X1 < 1 THEN 27930
+27080 IF Y1 > 192 THEN 27930
+27090 IF X1 > 256 THEN 27930
+27150 Y = INT ( Y1 + 1 ) 
+27160 X = INT ( X1 + 1 ) 
+27220 IF F = 0 THEN 27810
+27280 XS = INT ( X / 8 ) + 1 
+27290 YS = INT ( Y / 8 ) + 1 
+27300 XP = 8 * ( ( X / 8 ) - INT ( X / 8 ) ) 
+27310 YP = 8 * ( ( Y / 8 ) - INT ( Y / 8 ) ) 
+27320 XH = ( YP * 2 + 1 ) + INT ( XP / 4 ) 
+27330 XB = 3 - ( XP - INT ( XP / 4 ) * 4 ) 
+27390 CALL GCHAR ( YS , XS , Z ) 
+27400 IF Z > 32 THEN 27540
+27410 ZE = ZE - 1 
+27420 Z = ZE 
+27480 IF ZE < 33 THEN 27930
+27540 CALL CHARPAT ( Z , H$ ) 
+27550 G$ = SEG$ ( H$ , XH , 1 ) 
+27560 G = POS ( HX$ , G$ , 1 ) - 1 
+27570 Q = ( 2 ^ XB ) OR G 
+27580 G$ = SEG$ ( HX$ , Q + 1 , 1 ) 
+27640 B$ = SEG$ ( H$ , 1 , XH - 1 ) 
+27650 C$ = SEG$ ( H$ , XH + 1 , 16 - XH ) 
+27660 H$ = B$ & G$ & C$ 
+27720 CALL CHAR ( Z , H$ ) 
+27730 CALL HCHAR ( YS , XS , Z ) 
+27750 GOTO 27930
+27810 ZE = 143  :: F = 1 
+27820 HX$ = "0123456789ABCDEF" 
+27830 FOR I = 33 TO 143 
+27840 CALL CHAR ( I , "" ) 
+27850 NEXT I 
+27860 GOTO 27280
+27930 SUBEND 
+28000 SUB FARBE 
+28005 DIM F1 ( 15 ) , F2 ( 15 ) 
+28010 IF UP = 0 THEN 28200
+28020 CALL KEY ( 0 , K , S )  :: IF S < 1 THEN SUBEXIT 
+28030 FOR I = 1 TO 15 
+28040 IF F1 ( I ) < > K THEN 28060
+28050 FOR J = 0 TO 14  :: CALL COLOR ( J , I + 1 , 1 )  :: NEXT J  :: SUBEXIT 
+28060 IF F2 ( I ) = K THEN CALL SCREEN ( I + 1 )  :: SUBEXIT 
+28070 NEXT I 
+28080 SUBEXIT 
+28200 RESTORE 28250
+28210  ! 
+28220 FOR I = 1 TO 15 
+28230 READ F1 ( I ) , F2 ( I ) 
+28240 NEXT I 
+28250 DATA 49 , 177 , 50 , 178 , 51 , 179 , 52 , 180 , 53 , 181 , 54 , 182 , 55 , 183 , 56 , 158 , 57 , 159 , 48 , 176 , 61 , 157 
+28260 DATA 81 , 145 , 87 , 151 , 69 , 133 , 82 , 146 
+28270 UP = 1  :: GOTO 28020
+28300 SUBEND 

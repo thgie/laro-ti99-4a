@@ -1,0 +1,153 @@
+  100 CALL CLEAR 
+  105 RANDOMIZE 
+  110 CALL MAGNIFY ( 4 ) 
+  115 CALL COLOR ( 1 , 2 , 2 , 3 , 16 , 2 , 4 , 16 , 2 , 12 , 16 , 2 ) 
+  116 CALL CHAR ( 64 , RPT$ ( "0" , 15 ) & "1" & RPT$ ( "0" , 48 ) , 68 , RPT$ ( "0" , 15 ) & "101" , 70 , RPT$ ( "0" , 14 ) & "808" ) 
+  117 CALL CHAR ( 72 , "00000000000002030302" , 74 , "00000000000040C0C04" ) 
+  118 CALL CHAR ( 76 , "0000000000040506060504" , 78 , "000000000020A06060A02" ) 
+  119 CALL CHAR ( 80 , "000000000808090E0E090808" , 82 , "00000000101090707090101" ) 
+  120 CALL CHAR ( 96 , "00070F1F3F7F7F7F7F7F7F3F1F0F070000E0F0F8FCFEFEFEFEFEFEFCF8F0E000" ) 
+  121 CALL CHAR ( 84 , "000000101818191E1E1918181000000000000008181898787898181808" ) 
+  122 CALL CHAR ( 88 , "000020303031323D3D323130302000000000040C0C8C4CBCBC4C8C0C0C04" ) 
+  130 CALL CHAR ( 100 , "00000003070F1F1F1F1F0F0703000000000000C0E0F0F8F8F8F8F0E0C" ) 
+  140 CALL CHAR ( 104 , "000000000003070F0F070300000000000000000000C0E0F0F0E0C" ) 
+  150 CALL CHAR ( 108 , "00000000000103070703010000000000000000000080C0E0E0C08" ) 
+  160 CALL CHAR ( 112 , "0000000000000103030100000000000000000000000080C0C08" ) 
+  170 CALL CHAR ( 116 , "000000000000000101" , 118 , "00000000000000808" ) 
+  180 CALL CHAR ( 120 , "0000001000000000000000181800000000001038100000000000183C3C180000" ) 
+  185 CALL CHAR ( 92 , "8080C0C0C3CCDBFAFADBCCC3C0C0808001010303C333DB5F5FDB33C303030101" ) 
+  195 CALL CHAR ( 128 , "00000001060B050B050906010000000000000040A040A0D0A0D0A04" ) 
+  196 CALL CHAR ( 132 , "0000000002050A050A05020100000000000000008040A050A050A04" ) 
+  197 CALL CHAR ( 136 , "00000000020001040104010000000000000000008000401040104" ) 
+  200 CALL CHAR ( 140 , "070C102141C1A09C9CA0C14121120C07E03048848283053939058382844830E" ) 
+  210 CALL SCREEN ( 5 ) 
+  220 CALL SPRITE ( # 1 , 140 , 14 , 90 , 120 ) 
+  222 CALL SPRITE ( # 5 , 64 , 16 , 20 , 120 , 0 , 0 ) 
+  223 AS = 14 
+  225 GOSUB 1000
+  230 GOSUB 500
+  240 CALL KEY ( 1 , K , S ) 
+  250 IF K < > 18 THEN 230
+  260 CALL POSITION ( # 1 , P , Q ) 
+  270 CALL SPRITE ( # 2 , 96 , 12 , P , Q , 0 , 0 ) 
+  272 CALL COLOR ( # 1 , 11 ) 
+  275 GOSUB 500
+  280 FOR I = 1 TO 7 STEP 3  ! FOR I=1 TO 7 STEP 1
+  285 CALL COLOR ( # 1 , 10.5 + I / 2 ) 
+  290 CALL SOUND ( - 500 , - 5 , I + 3 ) 
+  295 IF I > 5 THEN I1 = 5 ELSE I1 = I 
+  300 CALL PATTERN ( # 2 , 96 + I1 * 4 ) 
+  305 GOSUB 500
+  308 IF I < SB / 3 THEN 320
+  311 CALL COINC ( # 5 , # 2 , 3 + SB , C ) 
+  312 IF C = 0 THEN 320
+  313 RS = RND - .5  :: CALL SOUND ( - 1000 , - 7 , 8 )  :: CALL DELSPRITE ( # 2 ) 
+  314 CALL COLOR ( # 5 , 10 )  :: CALL COLOR ( # 2 , 1 )  :: CALL PATTERN ( # 5 , 128 ) 
+  315 FOR Z = 1 TO 30  :: CALL JOYST ( 1 , X , Y )  :: CALL MOTION ( # 1 , - 5 * Y , 5 * X )  :: NEXT Z 
+  316 CALL DELSPRITE ( # 5 , # 2 ) 
+  317 CALL COLOR ( # 5 , 15 ) 
+  318 PU = PU + ( 20 - SB )  :: SB = 0  :: P$ = " " & STR$ ( PU ) & " "  :: DISPLAY AT ( 2 , ( 28 - LEN ( P$ ) ) / 2 ) SIZE ( LEN ( P$ ) )  : P$ 
+  319 AS = AS - 1  :: IF AS < = 0 THEN AS = 15  :: GOTO 230ELSE CALL COLOR ( # 5 , AS + 2 )  :: GOTO 230
+  320 NEXT I 
+  330 CALL COLOR ( # 2 , 10 ) 
+  332 CALL SOUND ( - 1000 , - 6 , 20 ) 
+  340 FOR I = 1 TO 3 
+  350 CALL PATTERN ( # 2 , 124 + I * 4 ) 
+  360 FOR J = 1 TO 4 
+  370 GOSUB 500
+  375 CALL KEY ( 1 , KEY , S )  :: IF KEY = 18 THEN 250
+  380 NEXT J 
+  390 NEXT I 
+  400 CALL DELSPRITE ( # 2 ) 
+  410 GOTO 230
+  500 CALL JOYST ( 1 , X , Y ) 
+  510 CALL MOTION ( # 1 , - 5 * Y , 5 * X ) 
+  515  ! RETURN
+  520 SB = SB + 1  :: IF SB > 19 THEN SB = 1 
+  525 CALL SOUND ( - 200 , - 2 , 19 - SB ) 
+  530 ON SB GOTO 540, 560, 580, 600, 620, 640, 660, 680, 700, 720, 740, 760, 780, 800, 820, 840, 860, 880, 900
+  540 CALL MOTION ( # 5 , 0 , 0 ) 
+  542 CALL PATTERN ( # 5 , 64 ) 
+  544 RS = ( RND - .5 ) * 3 
+  545 CALL LOCATE ( # 5 , 60 , 100 + 40 * RND ) 
+  555 GOTO 950
+  560 CALL MOTION ( # 5 , 4 , RS ) 
+  570  ! 
+  575 GOTO 950
+  580 CALL MOTION ( # 5 , 8 , RS * 2 ) 
+  590  ! 
+  595 GOTO 950
+  600 CALL MOTION ( # 5 , 12 , RS * 3 ) 
+  610 CALL PATTERN ( # 5 , 68 ) 
+  615 GOTO 950
+  620 CALL MOTION ( # 5 , 16 , RS * 4 ) 
+  630  ! 
+  635 GOTO 950
+  640 CALL MOTION ( # 5 , 20 , RS * 5 ) 
+  650  ! 
+  655 GOTO 950
+  660 CALL MOTION ( # 5 , 16 , RS * 5 ) 
+  670  ! 
+  675 GOTO 950
+  680 CALL MOTION ( # 5 , 12 , RS * 5 ) 
+  690 CALL PATTERN ( # 5 , 72 ) 
+  695 GOTO 950
+  700 CALL MOTION ( # 5 , 8 , RS * 5 ) 
+  710  ! 
+  715 GOTO 950
+  720 CALL MOTION ( # 5 , 4 , RS * 5 ) 
+  730 CALL PATTERN ( # 5 , 76 ) 
+  735 GOTO 950
+  740 CALL MOTION ( # 5 , 0 , RS * 5 ) 
+  750  ! 
+  751 CALL POSITION ( # 5 , P , Q ) 
+  752 CALL SPRITE ( # 4 , 116 , 16 , P , Q , ( 192 - P ) / 2 , ( 120 - Q ) / 2 ) 
+  753 CALL SOUND ( - 200 , - 5 , 6 ) 
+  755 GOTO 950
+  760 CALL MOTION ( # 5 , - 4 , RS * 5 ) 
+  765 CALL PATTERN ( # 5 , 80 ) 
+  770 CALL POSITION ( # 4 , P , Q ) 
+  771 IF P < 180 THEN 775
+  772 CALL DELSPRITE ( # 4 ) 
+  775 GOTO 950
+  780 CALL MOTION ( # 5 , - 8 , RS * 5 ) 
+  790  ! 
+  791 CALL POSITION ( # 4 , P , Q ) 
+  792 IF P < 180 THEN 795
+  793 CALL DELSPRITE ( # 4 ) 
+  795 GOTO 950
+  800 CALL MOTION ( # 5 , - 12 , RS * 5 ) 
+  805 CALL PATTERN ( # 5 , 84 ) 
+  810 CALL DELSPRITE ( # 4 ) 
+  811 CALL SCREEN ( 10 ) 
+  812 CALL SOUND ( - 200 , - 7 , 5 ) 
+  813 CALL SCREEN ( 5 ) 
+  814 PU = PU - 5  :: IF PU < 0 THEN PU = 0 
+  815 GOTO 950
+  820 CALL MOTION ( # 5 , - 16 , RS * 6 ) 
+  830  ! 
+  835 GOTO 950
+  840 CALL MOTION ( # 5 , - 20 , RS * 7 ) 
+  850 CALL PATTERN ( # 5 , 88 ) 
+  855 GOTO 950
+  860 CALL MOTION ( # 5 , - 24 , RS * 8 ) 
+  870  ! 
+  875 GOTO 950
+  880 CALL MOTION ( # 5 , - 28 , RS * 9 ) 
+  890 CALL PATTERN ( # 5 , 92 ) 
+  895 GOTO 950
+  900 CALL MOTION ( # 5 , - 32 , RS * 10 ) 
+  910 CALL POSITION ( # 5 , P , Q ) 
+  920 IF P < 193 THEN SB = 18  :: GOTO 950
+  930 CALL MOTION ( # 5 , 0 , 0 )  :: CALL LOCATE ( # 5 , 193 , 120 ) 
+  940 SB = 0 
+  950 RETURN 
+ 1000 REM  STERNENHIMMEL
+ 1010 DATA " x    x    x  x    x x        x                y      y            x           x       x    y                                   yx  x    x  " 
+ 1020 DATA "x    x    z              x    x     x      x   x   x   x          y          y           y         x        x    x       x        x y x     " 
+ 1030 DATA "    x       x    x      x     x    y       x   x  x   x           x                      x       z         y     x     x       x x  x      x" 
+ 1040 DATA "           x       x  x    x    {           x                    x               z               y      x      x  x        x     x    y x   " 
+ 1050 DATA "      y x  x   x  x  x   y      x        x            x    x       x          x     x     x      z     {    x   " 
+ 1060 READ S$ ( 1 ) , S$ ( 2 ) , S$ ( 3 ) , S$ ( 4 ) , S$ ( 5 ) 
+ 1070 DISPLAY AT ( 1 , 1 )  : S$ ( 1 )  ; S$ ( 2 )  ; S$ ( 3 )  ; S$ ( 4 )  ; S$ ( 5 ) 
+ 1080 RETURN 

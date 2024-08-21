@@ -1,0 +1,2 @@
+- recovering the BASIC from 017, 020, and 021 resulted in header checksum failures
+- 020 and 021 probably belong together, since I can only count 25 chunks
