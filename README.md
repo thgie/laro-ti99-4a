@@ -50,6 +50,15 @@ OLD CS1
 RUN
 ```
 
+## Analysis
+The notes contain automated basic analysis of some of the programs and games.
+
+- [ASCII ski](notes/001_sideA_001.md)
+- [Text-based dungeon crawler](notes/003_sideB_018.md)
+- [Star Trek space battle](notes/004_sideA_007.md)
+
+The analysis was done with Claude 3.5 Sonnet and the prompt was `What do you make of this code? Can you also create a mermaid.js flow chart of the program flow and add the line numbers to the nodes?`.
+
 ## Todo
 
 - [x] Dump rest of the cassettes
